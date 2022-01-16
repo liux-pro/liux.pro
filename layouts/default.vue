@@ -12,8 +12,11 @@
       <el-col :md="4" :lg="4" :xl="4" class="hidden-sm-and-down">
         &nbsp;
       </el-col>
-      <el-col :xs="24" :sm="24" :md="20" :lg="20" :xl="20">
+      <el-col :xs="24" :sm="24" :md="20" :lg="16" :xl="16">
         <nuxt-child />
+      </el-col>
+      <el-col :lg="4" :xl="4" class="hidden-md-and-down">
+        &nbsp;
       </el-col>
       <!--      <el-col :xs="0" :sm="0" :md="2" :lg="3" :xl="3"></el-col>-->
     </el-row>

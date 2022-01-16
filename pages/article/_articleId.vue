@@ -1,26 +1,30 @@
 <template>
-  <el-card class="box-card">
-    <div slot="header" class="clearfix">
-      <el-button
-        round
-        class="el-icon-menu"
-        size="mini"
-        @click="drawer = true"
-      />
-    </div>
-    <div id="code01">
-      <nuxt-content :document="page" />
-    </div>
-    <el-drawer
-      size="60%"
-      title="我是标题"
-      :visible.sync="drawer"
-      :with-header="false"
-      direction="ltr"
-    >
-      <Menu />
-    </el-drawer>
-  </el-card>
+  <div>
+    <el-card class="box-card" :header="s">
+      <div slot="header" class="clearfix">
+        <div>
+          <el-button
+            round
+            class="el-icon-menu"
+            size="mini"
+            @click="drawer = true"
+          />
+        </div>
+      </div>
+      <div id="code01">
+        <nuxt-content :document="doc" />
+      </div>
+      <el-drawer
+        size="60%"
+        title="我是标题"
+        :visible.sync="drawer"
+        :with-header="false"
+        direction="ltr"
+      >
+        <Menu />
+      </el-drawer>
+    </el-card>
+  </div>
 </template>
 
 <script>
@@ -34,17 +38,17 @@ export default {
     $content,
     params
   }) {
-    const page = await $content(params.articleId).fetch()
+    const doc = await $content(params.articleId).fetch()
     return {
-      page
-      // 这个变量名不能与data()里面的相同
+      doc
     }
   },
 
   data () {
     return {
       drawer: false,
-      ld: null
+      ld: null,
+      s: false
     }
   },
 
@@ -67,4 +71,11 @@ code {
   box-shadow: -20px 20px 60px #bebebe,
   20px -20px 60px #ffffff;
 }
+
+@media screen and (min-width: 992px) {
+  .el-card__header {
+    display: none;
+  }
+}
+
 </style>
