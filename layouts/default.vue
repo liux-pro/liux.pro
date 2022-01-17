@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row>
-      <el-col :md="4" :lg="4" :xl="4" class="hidden-sm-and-down aaa">
+      <el-col :md="4" :lg="4" :xl="4" class="hidden-sm-and-down main-menu">
         <Menu />
       </el-col>
     </el-row>
@@ -40,9 +40,12 @@ export default {
   }
 }
 </script>
-<style scoped>
-.aaa {
+<style>
+.main-menu {
   position: fixed;
   z-index: 9999;
+}
+body {
+  margin: 0;
 }
 </style>

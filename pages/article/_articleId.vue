@@ -2,12 +2,12 @@
   <div>
     <el-card class="box-card" :header="s">
       <div slot="header" class="clearfix">
-        <div>
+        <div style="float: right">
           <el-button
             round
-            class="el-icon-menu"
+            class="el-icon-s-unfold"
             size="mini"
-            @click="drawer = true"
+            @click="menuButton"
           />
         </div>
       </div>
@@ -32,13 +32,13 @@
 export default {
   name: 'ArticlePage',
 
-  // eslint-disable-next-line require-await
   async asyncData ({
     $axios,
     $content,
     params
   }) {
     const doc = await $content(params.articleId).fetch()
+    console.log(params)
     return {
       doc
     }
@@ -57,6 +57,13 @@ export default {
     //   this.md = r.data
     //   this.code = marked(this.md) // 将markdown内容解析
     // })
+  },
+  methods: {
+    menuButton (event) {
+      this.drawer = true
+      // 修复按钮不失去焦点
+      event.target.blur()
+    }
   }
 }
 </script>

@@ -57,6 +57,14 @@ export default {
     '@nuxt/content'
   ],
 
+  hooks: {
+    // 用插件强制打开文件修改监听
+    // 开发模式会自动开文件监听，开发模式给他强制打开
+    'content:ready': ($content) => {
+      $content.database.watch()
+    }
+  },
+
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308

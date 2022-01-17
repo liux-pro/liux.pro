@@ -71,4 +71,7 @@ export default {
   margin-top: 50vh;
   transform: translateY(-50%);
 }
+.el-menu /deep/ .el-submenu__icon-arrow  {
+  display: none;
+}
 </style>
