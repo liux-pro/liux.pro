@@ -1100,6 +1100,16 @@
   dependencies:
     tslib "^2.3.1"
 
+"@milkdown/plugin-listener@^5.3.2":
+  version "5.3.2"
+  resolved "https://registry.yarnpkg.com/@milkdown/plugin-listener/-/plugin-listener-5.3.2.tgz#1b27f52af640f52f245077a1d5e9e53964f1b472"
+  integrity sha512-GIjcliN+2+h9Rz6GPYQK6IF6Td0Cim9xTKj/ntCDUujoFKCib7r51/1WhbaRTDGMSpGopKGNQ5AH3g6zlj6jFw==
+  dependencies:
+    "@milkdown/core" "5.3.2"
+    "@milkdown/prose" "5.3.2"
+    "@milkdown/utils" "5.3.2"
+    tslib "^2.3.1"
+
 "@milkdown/preset-commonmark@^5.3.2":
   version "5.3.2"
   resolved "https://registry.yarnpkg.com/@milkdown/preset-commonmark/-/preset-commonmark-5.3.2.tgz#38a982be2475ff63aa02a1798cb37a5273efa85f"
