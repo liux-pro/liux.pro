@@ -31,7 +31,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ['@mdi/font/css/materialdesignicons.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
@@ -50,9 +50,9 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
+    '@nuxtjs/axios'
     // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa'
+    // '@nuxtjs/pwa'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -84,7 +84,8 @@ export default {
           success: colors.green.accent3
         }
       }
-    }
+    },
+    defaultAssets: false
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
