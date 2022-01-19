@@ -91,7 +91,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-footer
-      absolute
+      inset
       app
       class="hidden-md-and-down"
     >
@@ -134,5 +134,8 @@ export default {
 <style>
 html{
   overflow: hidden;
+}
+.container {
+  padding: 0;
 }
 </style>
