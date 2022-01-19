@@ -2,7 +2,6 @@
   <v-app dark>
     <v-navigation-drawer
       v-model="drawer"
-      :mini-variant="miniVariant"
       :clipped="clipped"
       fixed
       app
@@ -14,18 +13,21 @@
           </v-list-item-avatar>
         </v-list-item>
 
-        <v-list-item link>
-          <v-list-item-content>
-            <v-list-item-title class="text-h6">
-              Legend
-            </v-list-item-title>
-            <v-list-item-subtitle>me@liux.pro</v-list-item-subtitle>
-          </v-list-item-content>
-
-          <v-list-item-action>
-            <v-icon>mdi-menu-down</v-icon>
-          </v-list-item-action>
-        </v-list-item>
+        <v-list-group>
+          <template #activator>
+            <v-list-item-content>
+              <v-list-item-title class="text-h5 pb-1">
+                Legend
+              </v-list-item-title>
+              <v-list-item-subtitle>me@liux.pro</v-list-item-subtitle>
+            </v-list-item-content>
+          </template>
+          <div class="ml-5 text--primary ">
+            <v-icon class="pr-1" size="12">
+              mdi-map-marker-outline
+            </v-icon><span class="">Beijing,China</span><br>
+          </div>
+        </v-list-group>
       </v-list>
       <v-divider />
 
@@ -53,21 +55,9 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-btn
         icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn
-        icon
         @click.stop="clipped = !clipped"
       >
         <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>mdi-minus</v-icon>
       </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
@@ -127,9 +117,13 @@ export default {
           icon: 'mdi-chart-bubble',
           title: 'Inspire',
           to: '/inspire'
+        },
+        {
+          icon: 'mdi-book-open-outline',
+          title: 'Article',
+          to: '/article'
         }
       ],
-      miniVariant: false,
       right: true,
       rightDrawer: false,
       title: 'Vuetify.js'

@@ -1,49 +1,5 @@
 <template>
-  <v-navigation-drawer>
-    <v-system-bar />
-    <v-list>
-      <v-list-item class="justify-center">
-        <v-list-item-avatar size="64">
-          <v-img src="https://cdn.vuetifyjs.com/images/john.png" />
-        </v-list-item-avatar>
-      </v-list-item>
-
-      <v-list-item link>
-        <v-list-item-content>
-          <v-list-item-title class="text-h6">
-            Legend
-          </v-list-item-title>
-          <v-list-item-subtitle>me@liux.pro</v-list-item-subtitle>
-        </v-list-item-content>
-
-        <v-list-item-action>
-          <v-icon>mdi-menu-down</v-icon>
-        </v-list-item-action>
-      </v-list-item>
-    </v-list>
-    <v-divider />
-    <v-list
-      nav
-    >
-      <v-list-item-group
-        v-model="selectedItem"
-        color="primary"
-      >
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-        >
-          <v-list-item-icon>
-            <v-icon v-text="item.icon" />
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title v-text="item.text" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
-  </v-navigation-drawer>
+  <p>index</p>
 </template>
 
 <script>
