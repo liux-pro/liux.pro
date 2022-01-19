@@ -9,7 +9,7 @@
       <v-list>
         <v-list-item class="justify-center">
           <v-list-item-avatar size="88">
-            <v-img src="Drupal.png" />
+            <v-img src="/Drupal.png" />
           </v-list-item-avatar>
         </v-list-item>
 
@@ -131,3 +131,8 @@ export default {
   }
 }
 </script>
+<style>
+html{
+  overflow: hidden;
+}
+</style>
