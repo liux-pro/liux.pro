@@ -8,11 +8,32 @@
       app
     >
       <v-list>
+        <v-list-item class="justify-center">
+          <v-list-item-avatar size="88">
+            <v-img src="Drupal.png" />
+          </v-list-item-avatar>
+        </v-list-item>
+
+        <v-list-item link>
+          <v-list-item-content>
+            <v-list-item-title class="text-h6">
+              Legend
+            </v-list-item-title>
+            <v-list-item-subtitle>me@liux.pro</v-list-item-subtitle>
+          </v-list-item-content>
+
+          <v-list-item-action>
+            <v-icon>mdi-menu-down</v-icon>
+          </v-list-item-action>
+        </v-list-item>
+      </v-list>
+      <v-divider />
+
+      <v-list>
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
           :to="item.to"
-          router
           exact
         >
           <v-list-item-action>
@@ -80,10 +101,11 @@
       </v-list>
     </v-navigation-drawer>
     <v-footer
-      :absolute="!fixed"
+      absolute
       app
+      class="hidden-md-and-down"
     >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+      <span>liux.pro &copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
 </template>
@@ -95,7 +117,6 @@ export default {
     return {
       clipped: false,
       drawer: false,
-      fixed: false,
       items: [
         {
           icon: 'mdi-apps',
