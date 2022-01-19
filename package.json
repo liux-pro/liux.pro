@@ -13,10 +13,11 @@
     "lintfix": "yarn lint:js --fix"
   },
   "dependencies": {
-    "@milkdown/core": "^5.3.2",
-    "@milkdown/plugin-listener": "^5.3.2",
-    "@milkdown/preset-commonmark": "^5.3.2",
-    "@milkdown/theme-nord": "^5.3.2",
+    "@milkdown/core": "^5.3.3",
+    "@milkdown/plugin-listener": "^5.3.3",
+    "@milkdown/plugin-tooltip": "^5.3.3",
+    "@milkdown/preset-commonmark": "^5.3.3",
+    "@milkdown/theme-nord": "^5.3.3",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/pwa": "^3.3.5",
     "core-js": "^3.19.3",
