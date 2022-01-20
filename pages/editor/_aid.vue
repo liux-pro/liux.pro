@@ -90,22 +90,22 @@ export default {
 }
 </script>
 
-<style >
-::-webkit-scrollbar {
+<style scoped>
+/deep/ ::-webkit-scrollbar {
   width: 10px;
 }
 
-::-webkit-scrollbar-track {
+/deep/ ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
   border-radius: 10px;
 }
 
-::-webkit-scrollbar-thumb {
+/deep/ ::-webkit-scrollbar-thumb {
   background: var(--second-color);
   border-radius: 10px;
 }
 
-::-webkit-scrollbar-thumb:hover {
+/deep/ ::-webkit-scrollbar-thumb:hover {
   background: rgb(54, 56, 58);
 }
 </style>

@@ -133,7 +133,7 @@ export default {
 </script>
 <style>
 html{
-  overflow: hidden;
+  overflow: hidden !important;
 }
 .container {
   padding: 0;
