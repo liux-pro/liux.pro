@@ -91,5 +91,5 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
   ssr: false, // Disable Server Side rendering
-  target: 'static'
+  target: 'server'
 }

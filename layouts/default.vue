@@ -120,8 +120,8 @@ export default {
         },
         {
           icon: 'mdi-book-open-outline',
-          title: 'Article',
-          to: '/article'
+          title: 'editor',
+          to: '/editor'
         }
       ],
       right: true,
