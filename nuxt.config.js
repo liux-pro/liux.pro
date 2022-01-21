@@ -50,7 +50,8 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@/modules/vditor-patch'
     // https://go.nuxtjs.dev/pwa
     // '@nuxtjs/pwa'
   ],
@@ -64,7 +65,7 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
-      lang: 'en'
+      lang: 'zh-Hans'
     }
   },
 
@@ -91,5 +92,6 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
   ssr: false, // Disable Server Side rendering
-  target: 'server'
+  target: 'server',
+  hooks: {}
 }

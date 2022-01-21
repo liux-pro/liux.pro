@@ -1,9 +1,11 @@
 <template>
-  <div
-    id="vditor"
-    v-resize="handleResize"
-    :style="{height: editorHeight}"
-  />
+  <div>
+    <div
+      id="vditor"
+      v-resize="handleResize"
+      :style="{height: editorHeight}"
+    />
+  </div>
 </template>
 
 <script>
@@ -29,6 +31,14 @@ export default {
     this.contentEditor = new Vditor('vditor', {
       icon: 'material',
       theme: 'dark',
+      // _lutePath: '',
+      preview: {
+        theme: {
+          // 阻止从默认cdn加载主题
+          path: ''
+        }
+      },
+      cdn: './vditor',
       toolbarConfig: {
         pin: true
       },
@@ -82,11 +92,9 @@ export default {
         }
         workspaceHeight -= breakPointFix
         this.editorHeight = workspaceHeight + 'px'
-        console.log(workspaceHeight)
       }
     }
   }
-
 }
 </script>
 
