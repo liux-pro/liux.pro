@@ -10,7 +10,7 @@ export default function () {
       fse.copySync(path.join(path.dirname(require.resolve('vditor')), 'css'), path.join(builder.nuxt.options.alias.static, 'vditor', 'dist', 'css'))
       fse.copySync(path.join(path.dirname(require.resolve('vditor')), 'js'), path.join(builder.nuxt.options.alias.static, 'vditor', 'dist', 'js'))
       fse.copySync(path.join(path.dirname(require.resolve('vditor')), 'images'), path.join(builder.nuxt.options.alias.static, 'vditor', 'dist', 'images'))
-      console.log('\x1B[32m', 'i copy vditor dist success!')
+      console.log('\x1B[32m', 'copy vditor dist success!')
     } catch (err) {
       throw new Error('copy vditor dist fail')
     }
