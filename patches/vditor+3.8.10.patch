@@ -1,0 +1,13 @@
+diff --git a/node_modules/vditor/dist/index.min.js b/node_modules/vditor/dist/index.min.js
+index 7c9c1fc..2d5fd4c 100644
+--- a/node_modules/vditor/dist/index.min.js
++++ b/node_modules/vditor/dist/index.min.js
+@@ -8805,7 +8805,7 @@ var hotkeyEvent = function (vditor, editorElement) {
+             return;
+         }
+         // h1 - h6 hotkey
+-        if ((0,compatibility/* isCtrl */.yl)(event) && event.altKey && !event.shiftKey && /^Digit[1-6]$/.test(event.code)) {
++        if ((0,compatibility/* isCtrl */.yl)(event) && !event.altKey && !event.shiftKey && /^Digit[1-6]$/.test(event.code)) {
+             if (vditor.currentMode === "wysiwyg") {
+                 var tagName = event.code.replace("Digit", "H");
+                 if ((0,hasClosest/* hasClosestByMatchTag */.lG)(getSelection().getRangeAt(0).startContainer, tagName)) {
