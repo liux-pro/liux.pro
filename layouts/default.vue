@@ -138,4 +138,7 @@ html{
 .container {
   padding: 0;
 }
+header{
+  z-index: 0 !important;
+}
 </style>

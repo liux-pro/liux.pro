@@ -47,6 +47,15 @@ export default {
       },
       after: () => {
         this.contentEditor.setValue('hello, Vditor + Vue!')
+      },
+      upload: {
+        accept: 'image/*,.mp3, .wav, .rar',
+        token: 'test',
+        url: process.env.baseUrl + 'upload',
+        linkToImgUrl: process.env.baseUrl + 'imgUrlConvert',
+        filename (name) {
+          return name
+        }
       }
     })
     this.handleResize()
@@ -71,6 +80,7 @@ export default {
         //   case 'xl': breakPointFix = -this.$vuetify.application.footer + this.$vuetify.application.insetFooter; break
         //   default :breakPointFix = 0
         // }
+        const footerHeight = document.querySelector('footer').clientHeight
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
             breakPointFix = 0
@@ -82,10 +92,10 @@ export default {
             breakPointFix = 0
             break
           case 'lg':
-            breakPointFix = 36
+            breakPointFix = footerHeight
             break
           case 'xl':
-            breakPointFix = 36
+            breakPointFix = footerHeight
             break
           default :
             breakPointFix = 0
