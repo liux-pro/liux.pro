@@ -10,14 +10,25 @@
 
 <script>
 import Vditor from 'vditor'
+import { compositeKey } from '@/utils/hotkey'
+import { sha256 } from '@/utils/EncryptUtils'
 import 'vditor/dist/index.css'
 import 'vditor/dist/css/content-theme/dark.css'
 
 export default {
   name: 'EditorPage',
 
-  asyncData ({ params }) {
-    const aid = params.aid
+  async asyncData ({
+    params,
+    $axios,
+    redirect
+  }) {
+    let aid = params.aid
+    if (!/\d+/.test(aid)) {
+      const response = await $axios.$get('/getId')
+      aid = response.data
+      redirect(`/editor/${aid}`)
+    }
     return { aid }
   },
   data () {
@@ -38,7 +49,7 @@ export default {
           path: ''
         }
       },
-      cdn: './vditor',
+      cdn: '../vditor',
       toolbarConfig: {
         pin: true
       },
@@ -46,7 +57,13 @@ export default {
         enable: false
       },
       after: () => {
-        this.contentEditor.setValue('hello, Vditor + Vue!')
+        this.$axios.$get(`/article/${this.aid}`).then(
+          (article) => {
+            if (article.data) {
+              this.contentEditor.setValue(article.data.content)
+            }
+          }
+        )
       },
       upload: {
         accept: 'image/*,.mp3, .wav, .rar',
@@ -56,7 +73,25 @@ export default {
         filename (name) {
           return name
         }
+      },
+      input: (value) => {
+        console.log(value)
+        sha256(value.trimRight()).then((hex) => {
+          console.log(hex)
+          this.$axios.$post(`/article/${this.aid}`, {
+            title: 'mytitle',
+            content: value
+          })
+        })
       }
+    })
+    // hook保存快捷键
+    compositeKey('ctrl+s', (e) => {
+      e.preventDefault()// 阻止默认的保存动作
+      this.$axios.$post(`/article/${this.aid}`, {
+        title: 'mytitle',
+        content: this.contentEditor.getValue()
+      })
     })
     this.handleResize()
   },
@@ -111,6 +146,7 @@ export default {
 <style scoped>
 /deep/ ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
 
 /deep/ ::-webkit-scrollbar-track {
@@ -125,5 +161,9 @@ export default {
 
 /deep/ ::-webkit-scrollbar-thumb:hover {
   background: rgb(54, 56, 58);
+}
+/deep/ .vditor-reset{
+  padding-left: 50px !important;
+  padding-right: 50px !important;
 }
 </style>
