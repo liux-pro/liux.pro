@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      id="vditor"
+      id="editor"
       v-resize="handleResize"
       :style="{height: editorHeight}"
     />
@@ -9,11 +9,8 @@
 </template>
 
 <script>
-import Vditor from 'vditor'
-import { compositeKey } from '@/utils/hotkey'
-import { sha256 } from '@/utils/EncryptUtils'
-import 'vditor/dist/index.css'
-import 'vditor/dist/css/content-theme/dark.css'
+// import { compositeKey } from '@/utils/hotkey'
+// import { sha256 } from '@/utils/EncryptUtils'
 
 export default {
   name: 'EditorPage',
@@ -39,60 +36,6 @@ export default {
   },
   computed: {},
   mounted () {
-    this.contentEditor = new Vditor('vditor', {
-      icon: 'material',
-      theme: 'dark',
-      // _lutePath: '',
-      preview: {
-        theme: {
-          // 阻止从默认cdn加载主题
-          path: ''
-        }
-      },
-      cdn: '../vditor',
-      toolbarConfig: {
-        pin: true
-      },
-      cache: {
-        enable: false
-      },
-      after: () => {
-        this.$axios.$get(`/article/${this.aid}`).then(
-          (article) => {
-            if (article.data) {
-              this.contentEditor.setValue(article.data.content)
-            }
-          }
-        )
-      },
-      upload: {
-        accept: 'image/*,.mp3, .wav, .rar',
-        token: 'test',
-        url: process.env.baseUrl + 'upload',
-        linkToImgUrl: process.env.baseUrl + 'imgUrlConvert',
-        filename (name) {
-          return name
-        }
-      },
-      input: (value) => {
-        console.log(value)
-        sha256(value.trimRight()).then((hex) => {
-          console.log(hex)
-          this.$axios.$post(`/article/${this.aid}`, {
-            title: 'mytitle',
-            content: value
-          })
-        })
-      }
-    })
-    // hook保存快捷键
-    compositeKey('ctrl+s', (e) => {
-      e.preventDefault()// 阻止默认的保存动作
-      this.$axios.$post(`/article/${this.aid}`, {
-        title: 'mytitle',
-        content: this.contentEditor.getValue()
-      })
-    })
     this.handleResize()
   },
   methods: {
@@ -155,15 +98,15 @@ export default {
 }
 
 /deep/ ::-webkit-scrollbar-thumb {
-  background: var(--second-color);
+  background: black;
   border-radius: 10px;
 }
 
 /deep/ ::-webkit-scrollbar-thumb:hover {
   background: rgb(54, 56, 58);
 }
-/deep/ .vditor-reset{
-  padding-left: 50px !important;
-  padding-right: 50px !important;
+
+#editor {
+  background: aqua;
 }
 </style>
