@@ -4,13 +4,29 @@
       id="editor"
       v-resize="handleResize"
       :style="{height: editorHeight}"
+      :class="editorCLass"
     />
+    <v-btn
+      color="pink"
+      fab
+      dark
+      small
+      absolute
+      bottom
+      left
+      @click="handleSave"
+    >
+      <v-icon>mdi-plus</v-icon>
+    </v-btn>
   </div>
 </template>
 
 <script>
-// import { compositeKey } from '@/utils/hotkey'
 // import { sha256 } from '@/utils/EncryptUtils'
+import EditorJS from '@editorjs/editorjs'
+import Header from '@editorjs/header'
+import CodeBox from '@bomdi/codebox'
+import { compositeKey } from '@/utils/hotkey'
 
 export default {
   name: 'EditorPage',
@@ -26,7 +42,16 @@ export default {
       aid = response.data
       redirect(`/editor/${aid}`)
     }
-    return { aid }
+
+    const response = (await $axios.$get(`/article/${aid}`)).data
+    let content = null
+    if (response) {
+      content = JSON.parse(response.content)
+    }
+    return {
+      aid,
+      content
+    }
   },
   data () {
     return {
@@ -34,8 +59,40 @@ export default {
       editorHeight: 'auto'
     }
   },
-  computed: {},
+  computed: {
+    editorCLass () {
+      if (this.$nuxt.$vuetify.theme.isDark) {
+        return ['dark']
+      } else {
+        return []
+      }
+    }
+
+  },
   mounted () {
+    this.contentEditor = new EditorJS({
+      holder: 'editor',
+      tools: {
+        header: {
+          class: Header,
+          inlineToolbar: true
+        },
+        code: {
+          class: CodeBox,
+          config: {
+            themeURL: '../highlight.css', // Optional
+            // themeName: 'atom-one-dark', // Optional
+            useDefaultTheme: 'dark' // Optional. This also determines the background color of the language select drop-down
+          }
+        }
+      },
+      data: this.content
+    })
+    // hook保存快捷键
+    compositeKey('ctrl+s', (e) => {
+      e.preventDefault()// 阻止默认的保存动作
+      this.handleSave()
+    })
     this.handleResize()
   },
   methods: {
@@ -81,32 +138,181 @@ export default {
         workspaceHeight -= breakPointFix
         this.editorHeight = workspaceHeight + 'px'
       }
+    },
+    handleSave () {
+      this.contentEditor.save().then((data) => {
+        this.$axios.$post(`/article/${this.aid}`, {
+          title: 'mytitle',
+          content: JSON.stringify(data)
+        })
+      })
     }
   }
 }
 </script>
 
-<style scoped>
-/deep/ ::-webkit-scrollbar {
+<style scoped lang="scss">
+$menu-background: rgb(39, 39, 39);
+
+.dark {
+  ::v-deep {
+    .ce-toolbar {
+      //tune按钮
+      .ce-toolbar__settings-btn {
+        color: inherit;
+      }
+
+      //加号按钮
+      .ce-toolbar__plus {
+        color: inherit;
+      }
+    }
+
+    //加号点开之后
+    .ce-toolbox {
+      background-color: $menu-background;
+      border-radius: 5px;
+
+      .ce-toolbox__button {
+        margin-left: 0;
+        color: inherit;
+      }
+    }
+
+    //tune点开的菜单
+    .ce-settings {
+      background-color: $menu-background;
+      border-style: none;
+
+      .ce-settings__button {
+        color: inherit;
+      }
+    }
+
+    //选中的部分
+    ::selection {
+      background: $menu-background;
+    }
+
+    //选中block内容后弹出的菜单
+    .ce-inline-toolbar {
+      background: $menu-background;
+      color: inherit;
+      border-style: none;
+    }
+
+    //选中后点转换弹出的菜单
+    .ce-conversion-toolbar {
+      background-color: $menu-background;
+
+      .ce-conversion-tool__icon {
+        background-color: $menu-background;
+      }
+
+      .ce-conversion-tool--focused {
+        background-color: $menu-background;
+      }
+    }
+
+  }
+}
+
+.dark {
+  ::v-deep {
+    .ce-toolbar__settings-btn:hover, .ce-inline-tool:hover,
+    .ce-inline-toolbar__dropdown:hover, .ce-toolbar__plus:hover,
+    .ce-toolbox__button:hover {
+      background: gray;
+      color: white;
+    }
+  }
+}
+
+//block选中后的框
+::v-deep .ce-block--selected .ce-block__content {
+  background-color: rgb(112, 112, 112);
+  border-radius: 10px;
+}
+</style>
+
+<style>
+#editor {
+  overflow: auto;
+}
+
+::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 
-/deep/ ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey;
-  border-radius: 10px;
+::-webkit-scrollbar-track {
 }
 
-/deep/ ::-webkit-scrollbar-thumb {
-  background: black;
-  border-radius: 10px;
-}
-
-/deep/ ::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb {
   background: rgb(54, 56, 58);
 }
 
-#editor {
-  background: aqua;
+::-webkit-scrollbar-thumb:hover {
+  background: grey;
+}
+</style>
+<style>
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em
+}
+
+code.hljs {
+  padding: 3px 5px
+}
+
+.hljs {
+  color: #a9b7c6;
+  background: #282b2e
+}
+
+.hljs-bullet, .hljs-literal, .hljs-number, .hljs-symbol {
+  color: #6897bb
+}
+
+.hljs-deletion, .hljs-keyword, .hljs-selector-tag {
+  color: #ff8f38
+}
+
+.hljs-link, .hljs-template-variable, .hljs-variable {
+  color: #629755
+}
+
+.hljs-comment, .hljs-quote {
+  color: grey
+}
+
+.hljs-meta {
+  color: #bbb529
+}
+
+.hljs-addition, .hljs-attribute, .hljs-string {
+  color: #6a8759
+}
+
+.hljs-section, .hljs-title, .hljs-type {
+  color: #4ed2b0
+}
+
+.hljs-name, .hljs-selector-class, .hljs-selector-id {
+  color: #e8bf6a
+}
+
+.hljs-built_in {
+  color: #4ed2b0
+}
+
+.hljs-emphasis {
+  font-style: italic
+}
+
+.hljs-strong {
+  font-weight: 700
 }
 </style>

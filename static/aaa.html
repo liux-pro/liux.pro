@@ -1,0 +1,53 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<pre style="background-color:#2b2b2b;color:#f0f0f0;font-family:'JetBrains Mono',monospace;font-size:19.5pt;"><span
+  style="color:#ff8f38;"
+>package&#32;</span><span style="color:#4ed2b0;">pro.liux.web.config.property</span><span style="color:#cc7832;"
+>;<br></span><span style="color:#cc7832;"><br></span><span style="color:#ff8f38;">import&#32;</span><span
+  style="color:#4ed2b0;"
+>lombok.</span><span style="color:#bbb529;">Data</span><span style="color:#cc7832;">;<br></span><span
+  style="color:#ff8f38;"
+>import&#32;</span><span style="color:#4ed2b0;">org.springframework.boot.context.properties.</span><span
+  style="color:#bbb529;"
+>ConfigurationProperties</span><span style="color:#cc7832;">;<br></span><span style="color:#ff8f38;"
+>import&#32;</span><span style="color:#4ed2b0;">org.springframework.context.annotation.</span><span
+  style="color:#bbb529;"
+>Configuration</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;"><br></span><span
+  style="color:#cc7832;"
+><br></span><span style="color:#bbb529;">@ConfigurationProperties</span>(<span style="color:#a9b7c6;">prefix&#32;</span><span
+  style="color:#ffe800;"
+>=&#32;</span><span style="color:#69a146;">"liux-pro.oss"</span>)<br><span style="color:#bbb529;"
+>@Configuration<br></span><span style="color:#bbb529;">@Data<br></span><span style="color:#ff8f38;">public&#32;class&#32;</span><span
+  style="color:#4ed2b0;"
+>OSS&#32;</span>{<br>&#32;&#32;&#32;&#32;<span style="color:#ff8f38;">private&#32;</span><span style="color:#4ed2b0;">String&#32;</span><span
+  style="color:#9876aa;"
+>region</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">&#32;&#32;&#32;&#32;</span><span
+  style="color:#ff8f38;"
+>private&#32;</span><span style="color:#4ed2b0;">String&#32;</span><span style="color:#9876aa;">service</span><span
+  style="color:#cc7832;"
+>;<br></span><span style="color:#cc7832;">&#32;&#32;&#32;&#32;</span><span style="color:#ff8f38;"
+>private&#32;</span><span style="color:#4ed2b0;">String&#32;</span><span style="color:#9876aa;">accessKey</span><span
+  style="color:#cc7832;"
+>;<br></span><span style="color:#cc7832;">&#32;&#32;&#32;&#32;</span><span style="color:#ff8f38;"
+>private&#32;</span><span style="color:#4ed2b0;">String&#32;</span><span style="color:#9876aa;">secretKey</span><span
+  style="color:#cc7832;"
+>;<br></span><span style="color:#cc7832;">&#32;&#32;&#32;&#32;</span><span style="color:#ff8f38;"
+>private&#32;</span><span style="color:#4ed2b0;">String&#32;</span><span style="color:#9876aa;">endpoint</span><span
+  style="color:#cc7832;"
+>;<br></span><span style="color:#cc7832;">&#32;&#32;&#32;&#32;</span><span style="color:#ff8f38;"
+>private&#32;</span><span style="color:#4ed2b0;">String&#32;</span><span style="color:#9876aa;">bucket</span><span
+  style="color:#cc7832;"
+>;<br></span><span style="color:#cc7832;">&#32;&#32;&#32;&#32;</span><span style="color:#ff8f38;"
+>private&#32;</span><span style="color:#4ed2b0;">String&#32;</span><span style="color:#9876aa;">cdnHost</span><span
+  style="color:#cc7832;"
+>;<br></span><span style="color:#cc7832;">&#32;&#32;&#32;&#32;</span><span style="color:#629755;font-style:italic;"
+>/**<br></span><span style="color:#629755;font-style:italic;"
+>&#32;&#32;&#32;&#32;&#32;*&#32;https&#32;or&#32;http<br></span><span style="color:#629755;font-style:italic;">&#32;&#32;&#32;&#32;&#32;*/<br></span><span
+  style="color:#629755;font-style:italic;"
+>&#32;&#32;&#32;&#32;</span><span style="color:#ff8f38;">private&#32;</span><span style="color:#4ed2b0;"
+>String&#32;</span><span style="color:#9876aa;">protocol</span><span style="color:#cc7832;">;<br></span>}<br></pre>
+</body>
+</html>

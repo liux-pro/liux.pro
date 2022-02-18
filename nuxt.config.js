@@ -1,5 +1,3 @@
-import colors from 'vuetify/es5/util/colors'
-
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -58,7 +56,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: process.env.BASE_URL || 'http://localhost:8081/'
+    baseURL: process.env.BASE_URL || 'http://1.1.1.111:8081/'
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
@@ -73,27 +71,24 @@ export default {
     customVariables: ['~/assets/variables.scss'],
     theme: {
       dark: true,
-      themes: {
-        dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3
-        }
+      options: {
+        customProperties: true
       }
     },
     defaultAssets: false
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  // build: {
+  //   extend (config, { isDev, isClient }) {
+  //     if (isClient) {
+  //       config.externals = {
+  //         'mavon-editor': 'MavonEditor'
+  //       }
+  //     }
+  //   }
+  // },
   ssr: false, // Disable Server Side rendering
   target: 'server',
-  hooks: {},
-  env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:8081/'
-  }
+  hooks: {}
 }
