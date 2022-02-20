@@ -252,8 +252,22 @@ $menu-background: rgb(39, 39, 39);
   background: grey;
 }
 </style>
-<style>
+<style lang="scss">
 .theme--dark.v-application code{
   background-color: unset;
 }
+.ce-block__content{
+  max-width: 1000px;
+}
+.ce-toolbar__content{
+  max-width: 1000px;
+}
+
+code-input{
+  ::selection {
+    color: gray;
+    background-color: black !important;
+  }
+}
+
 </style>

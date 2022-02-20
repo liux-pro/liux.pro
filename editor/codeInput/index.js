@@ -3,6 +3,7 @@ import './liux.pro.code.css'
 import codeInput from './code-input'
 import Prism from 'prismjs'
 import calcTextareaHeight from '@/utils/calcTextareaHeight'
+
 codeInput.registerTemplate('syntax-highlighted', codeInput.templates.prism(Prism))
 
 class CodeInput {
@@ -13,28 +14,46 @@ class CodeInput {
     }
   }
 
-  constructor ({ data,api }) {
+  constructor ({
+    data,
+    api
+  }) {
     this.data = data
     this.api = api
   }
-  static get enableLineBreaks() {
-    return true;
+
+  static get enableLineBreaks () {
+    return true
   }
+
   render () {
     const wrapper = document.createElement('div')
     const input = document.createElement('code-input')
     input.setAttribute('lang', 'java')
-    if (this.data && this.data.code){
+    if (this.data && this.data.code) {
       input.value = this.data.code
     }
+    //输入文字后重新计算dom高度
     this.api.listeners.on(input, 'input', event => {
-      let textarea = input.querySelector("textarea")
-      let result  = calcTextareaHeight(textarea)
-      input.style.height=result.height
-    }, false);
-    this.api.listeners.on(input, 'keypress', event => {
-        console.log(event)
-    }, false);
+      let textarea = input.querySelector('textarea')
+      let result = calcTextareaHeight(textarea)
+      //magic
+      input.style.height = (parseInt(result.height.replace('px')) + 32) + 'px'
+    }, false)
+    //监听输入框渲染到dom
+    const observer = new MutationObserver((mutations) => {
+      if (document.contains(input)) {
+        //发个事件过去，让上面的代码重新计算高度
+        input.dispatchEvent(new Event('input'))
+        observer.disconnect()
+      }
+    })
+    observer.observe(document, {
+      attributes: false,
+      childList: true,
+      characterData: false,
+      subtree: true
+    })
 
     wrapper.appendChild(input)
 

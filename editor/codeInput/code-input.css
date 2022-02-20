@@ -13,11 +13,11 @@ code-input {
   /* Normal inline styles */
   padding: 8px;
   margin: 8px;
-  width: calc(100% - 16px);
+  width: 100%;
   height: 250px;
 
   font-size: 15pt;
-  font-family: monospace;
+  font-family: Consolas, serif;
   line-height: 20pt;
   tab-size: 2;
   caret-color: darkgrey;

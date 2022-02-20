@@ -12,7 +12,6 @@ var codeInput = {
 
     /* Syntax-highlighting functions */
     update (text) {
-      console.log(this.querySelector('textarea'))
       if (this.value != text) {
         this.value = text
       } // Change value attribute if necessary.
