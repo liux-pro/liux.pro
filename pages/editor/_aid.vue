@@ -25,8 +25,9 @@
 // import { sha256 } from '@/utils/EncryptUtils'
 import EditorJS from '@editorjs/editorjs'
 import Header from '@editorjs/header'
-import CodeBox from '@bomdi/codebox'
+import CodeInput from '@/editor/codeInput/index'
 import { compositeKey } from '@/utils/hotkey'
+import 'prismjs/components/prism-java'
 
 export default {
   name: 'EditorPage',
@@ -78,12 +79,7 @@ export default {
           inlineToolbar: true
         },
         code: {
-          class: CodeBox,
-          config: {
-            themeURL: '../highlight.css', // Optional
-            // themeName: 'atom-one-dark', // Optional
-            useDefaultTheme: 'dark' // Optional. This also determines the background color of the language select drop-down
-          }
+          class: CodeInput
         }
       },
       data: this.content
@@ -257,62 +253,7 @@ $menu-background: rgb(39, 39, 39);
 }
 </style>
 <style>
-pre code.hljs {
-  display: block;
-  overflow-x: auto;
-  padding: 1em
-}
-
-code.hljs {
-  padding: 3px 5px
-}
-
-.hljs {
-  color: #a9b7c6;
-  background: #282b2e
-}
-
-.hljs-bullet, .hljs-literal, .hljs-number, .hljs-symbol {
-  color: #6897bb
-}
-
-.hljs-deletion, .hljs-keyword, .hljs-selector-tag {
-  color: #ff8f38
-}
-
-.hljs-link, .hljs-template-variable, .hljs-variable {
-  color: #629755
-}
-
-.hljs-comment, .hljs-quote {
-  color: grey
-}
-
-.hljs-meta {
-  color: #bbb529
-}
-
-.hljs-addition, .hljs-attribute, .hljs-string {
-  color: #6a8759
-}
-
-.hljs-section, .hljs-title, .hljs-type {
-  color: #4ed2b0
-}
-
-.hljs-name, .hljs-selector-class, .hljs-selector-id {
-  color: #e8bf6a
-}
-
-.hljs-built_in {
-  color: #4ed2b0
-}
-
-.hljs-emphasis {
-  font-style: italic
-}
-
-.hljs-strong {
-  font-weight: 700
+.theme--dark.v-application code{
+  background-color: unset;
 }
 </style>
