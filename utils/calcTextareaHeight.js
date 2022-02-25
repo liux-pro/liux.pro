@@ -1,3 +1,5 @@
+// this file is the copy of https://raw.githubusercontent.com/ElemeFE/element/dev/packages/input/src/calcTextareaHeight.js
+// with some modification
 let hiddenTextarea
 
 const HIDDEN_STYLE = `
@@ -62,6 +64,7 @@ export default function calcTextareaHeight (
 ) {
   if (!hiddenTextarea) {
     hiddenTextarea = document.createElement('textarea')
+    hiddenTextarea.setAttribute('wrap', 'off')
     document.body.appendChild(hiddenTextarea)
   }
 

@@ -6,18 +6,6 @@
       :style="{height: editorHeight}"
       :class="editorCLass"
     />
-    <v-btn
-      color="pink"
-      fab
-      dark
-      small
-      absolute
-      bottom
-      left
-      @click="handleSave"
-    >
-      <v-icon>mdi-plus</v-icon>
-    </v-btn>
   </div>
 </template>
 
@@ -231,7 +219,7 @@ $menu-background: rgb(39, 39, 39);
 }
 </style>
 
-<style>
+<style lang="scss">
 #editor {
   overflow: auto;
 }
@@ -267,6 +255,17 @@ code-input{
   ::selection {
     color: gray;
     background-color: black !important;
+  }
+}
+.codex-editor__redactor{
+  padding-bottom: 0 !important;
+}
+.code-wrapper{
+  padding: 5px 10px;
+}
+@media screen and (min-width: 768px) {
+  .code-wrapper{
+    padding: 15px 30px;
   }
 }
 
