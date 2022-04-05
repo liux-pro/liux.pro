@@ -1,21 +1,15 @@
 <template>
-  <div>
+  <div :style="{height: editorHeight}">
     <div
       id="editor"
       v-resize="handleResize"
-      :style="{height: editorHeight}"
-      :class="editorCLass"
     />
   </div>
 </template>
 
 <script>
 // import { sha256 } from '@/utils/EncryptUtils'
-import EditorJS from '@editorjs/editorjs'
-import Header from '@editorjs/header'
-import CodeInput from '@/editor/codeInput/index'
-import { compositeKey } from '@/utils/hotkey'
-import 'prismjs/components/prism-java'
+import $ from 'jquery'
 
 export default {
   name: 'EditorPage',
@@ -44,39 +38,64 @@ export default {
   },
   data () {
     return {
-      contentEditor: null,
+      editor: null,
       editorHeight: 'auto'
     }
   },
-  computed: {
-    editorCLass () {
-      if (this.$nuxt.$vuetify.theme.isDark) {
-        return ['dark']
-      } else {
-        return []
+  computed: {},
+  mounted () {
+    // 挂载jquery
+    window.$ = window.jQuery = $
+
+    const editorOption = {
+      // width: "90%",
+      height: '100%',
+      path: '/editor-md/lib/',
+      theme: 'dark',
+      previewTheme: 'dark',
+      editorTheme: 'pastel-on-dark',
+      // markdown : md,   //动态设置的markdown文本
+      codeFold: true,
+      // syncScrolling : false,
+      saveHTMLToTextarea: true, // 保存 HTML 到 Textarea
+      searchReplace: true,
+      // watch : false,                // 关闭实时预览
+      htmlDecode: 'style,script,iframe|on*', // 开启 HTML 标签解析，为了安全性，默认不开启
+      // toolbar  : false,             //关闭工具栏
+      // previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
+      emoji: true,
+      taskList: true,
+      tocm: true, // Using [TOCM]
+      tex: true, // 开启科学公式TeX语言支持，默认关闭
+      flowChart: true, // 开启流程图支持，默认关闭
+      sequenceDiagram: true, // 开启时序/序列图支持，默认关闭,
+      // dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
+      // dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+      // dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
+      // dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
+      // dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
+      imageUpload: true,
+      imageFormats: ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'webp'],
+      imageUploadURL: './php/upload.php',
+      onload: () => {
+        // console.log('onload', this);
+        // this.fullscreen();
+        // this.unwatch();
+        // this.watch().fullscreen();
+
+        // this.setMarkdown("#PHP");
+        // this.width("100%");
+        // this.height(480);
+        // this.resize("100%", 640);
       }
     }
 
-  },
-  mounted () {
-    this.contentEditor = new EditorJS({
-      holder: 'editor',
-      tools: {
-        header: {
-          class: Header,
-          inlineToolbar: true
-        },
-        code: {
-          class: CodeInput
-        }
-      },
-      data: this.content
+    // 加载editormd
+    this.requireEditor(() => {
+      // eslint-disable-next-line no-undef
+      this.editor = editormd('editor', editorOption)
     })
     // hook保存快捷键
-    compositeKey('ctrl+s', (e) => {
-      e.preventDefault()// 阻止默认的保存动作
-      this.handleSave()
-    })
     this.handleResize()
   },
   methods: {
@@ -123,6 +142,18 @@ export default {
         this.editorHeight = workspaceHeight + 'px'
       }
     },
+    requireEditor (callback) {
+      // eslint-disable-next-line no-unused-vars
+      const vm = this
+      // 设置全局变量，因为editormd依赖jquery
+      window.$ = window.jQuery = $
+      // 异步加载并执行
+      $.getScript('/editor-md/editormd.min.js', function (script) {
+        callback()
+      })
+      // 加载css
+      $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', '/editor-md/css/editormd.min.css'))
+    },
     handleSave () {
       this.contentEditor.save().then((data) => {
         this.$axios.$post(`/article/${this.aid}`, {
@@ -136,137 +167,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$menu-background: rgb(39, 39, 39);
-
-.dark {
-  ::v-deep {
-    .ce-toolbar {
-      //tune按钮
-      .ce-toolbar__settings-btn {
-        color: inherit;
-      }
-
-      //加号按钮
-      .ce-toolbar__plus {
-        color: inherit;
-      }
-    }
-
-    //加号点开之后
-    .ce-toolbox {
-      background-color: $menu-background;
-      border-radius: 5px;
-
-      .ce-toolbox__button {
-        margin-left: 0;
-        color: inherit;
-      }
-    }
-
-    //tune点开的菜单
-    .ce-settings {
-      background-color: $menu-background;
-      border-style: none;
-
-      .ce-settings__button {
-        color: inherit;
-      }
-    }
-
-    //选中的部分
-    ::selection {
-      background: $menu-background;
-    }
-
-    //选中block内容后弹出的菜单
-    .ce-inline-toolbar {
-      background: $menu-background;
-      color: inherit;
-      border-style: none;
-    }
-
-    //选中后点转换弹出的菜单
-    .ce-conversion-toolbar {
-      background-color: $menu-background;
-
-      .ce-conversion-tool__icon {
-        background-color: $menu-background;
-      }
-
-      .ce-conversion-tool--focused {
-        background-color: $menu-background;
-      }
-    }
-
-  }
-}
-
-.dark {
-  ::v-deep {
-    .ce-toolbar__settings-btn:hover, .ce-inline-tool:hover,
-    .ce-inline-toolbar__dropdown:hover, .ce-toolbar__plus:hover,
-    .ce-toolbox__button:hover {
-      background: gray;
-      color: white;
-    }
-  }
-}
-
-//block选中后的框
-::v-deep .ce-block--selected .ce-block__content {
-  background-color: rgb(112, 112, 112);
-  border-radius: 10px;
-}
-</style>
-
-<style lang="scss">
-#editor {
-  overflow: auto;
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgb(54, 56, 58);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: grey;
-}
-</style>
-<style lang="scss">
-.theme--dark.v-application code{
-  background-color: unset;
-}
-.ce-block__content{
-  max-width: 1000px;
-}
-.ce-toolbar__content{
-  max-width: 1000px;
-}
-
-code-input{
-  ::selection {
-    color: gray;
-    background-color: black !important;
-  }
-}
-.codex-editor__redactor{
-  padding-bottom: 0 !important;
-}
-.code-wrapper{
-  padding: 5px 10px;
-}
-@media screen and (min-width: 768px) {
-  .code-wrapper{
-    padding: 15px 30px;
-  }
-}
 
 </style>
